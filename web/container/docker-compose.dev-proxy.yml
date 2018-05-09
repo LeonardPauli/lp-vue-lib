@@ -1,19 +1,17 @@
 version: '3.6'
 services:
   app:
-    image: $image_name:$env
-    build:
-      context: ../..
-      dockerfile: web/container/Dockerfile
-      target: $env
-      args:
-        npm_config_registry: $npm_config_registry
+    image: leonardpauli/docs-nginx-base:latest
     env_file: .env
+    environment:
+      server_default_local_proxy: http://docker.for.mac.localhost:8080
     ports: ["80:80", "443:443"]
+    
     volumes:
       - ./data:/data
       - ./data/ssl/acme/webroot:/data/ssl/acme/webroot
       - ./data/ssl:/etc/nginx/ssl
+      - ./nginx:/app-nginx/nginx
     depends_on:
       - ssl-manager
     networks:
