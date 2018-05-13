@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+script_dir () { (a="/$0"; a=${a%/*}; a=${a:-.}; a=${a#/}/; echo "$a"); }
+load_env () { while read a <&3; do [ "${a#'#'}" = "$a" ] && [ ! -z "$a" ] && export "$a"; done 3< "${1:-.env}"; }
+
+cd "$(script_dir)"
+if ! load_env; then # server_default_local_domains dev_window_setup lpdocs npm_config_registry dev_on_host
+	echo 'No .env file created'
+	echo 'Please see docs/setup.rim/"get running"'
+	exit
+fi
+
+if [ ! -d "$lpdocs" ]; then
+	echo 'Please run:\necho "lpdocs=\$(cd .. && git clone git@github.com:LeonardPauli/docs.git && pwd)/docs" >> .env && ./dev'
+	sleep 1; exit
+fi
+
+main_local_domain="$(echo "$server_default_local_domains" | cut -d ',' -f 1)"
+local_url="https://$main_local_domain"
+
+local_reg_startable () {
+	(echo "$npm_config_registry" | grep localhost \
+	&& [ -f "$lpdocs/app/node/registry/local/isUp.sh" ] \
+	&& ! $lpdocs/app/node/registry/local/isUp.sh) > /dev/null
+}
+
+"$lpdocs/app/misc/workspace_setup.sh" "$dev_window_setup" <<-EOF
+	{type: "sublime", h: p's h, w: p's w / 2}
+	{type: "chrome", x: p's w / 2, h: p's h, w: p's w / 2, url: "$local_url"}
+	{type: "iterm", in_new: "tab", condition: $(local_reg_startable && echo true || echo false), cmd: "cd $lpdocs/app/node/registry/local && ./start && docker-compose logs -f --tail=10"}
+	{type: "iterm", in_new: "tab"}
+	{type: "iterm", in_new: "v_panel", cmd: "cd web/container && ./start", m_down: 9}
+	{type: "iterm", in_new: "h_panel", cmd: "cd web && npm run lint:watch", m_left: 9, condition: ${dev_on_host:-false}}
+EOF
+echo "closing in 3..."; sleep 3 # to keep iterm happy / suppress fast exit message
