@@ -4,7 +4,7 @@ services:
     image: leonardpauli/docs-nginx-base:latest
     env_file: .env
     environment:
-      server_default_local_proxy: http://docker.for.mac.localhost:8080
+      server_default_local_proxy: docker.for.mac.localhost:8080
     ports: ["80:80", "443:443"]
     
     volumes:
