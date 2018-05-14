@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
+		"lint:watch": "onchange '{{src}/**,.}/*.{vue,js}' -d 200 -w -- npm run --silent lint {{changed}}",
 		"lint:compile": "echo \"require('fs').writeFileSync('.eslintrc', JSON.stringify(require('./.eslintrc.js')), 'utf-8')\" | node",
 		"dev": "npm --prefer-offline --no-optional i && ./node_modules/.bin/vue-cli-service serve",
 		"serve": "vue-cli-service serve --open",
@@ -31,6 +32,7 @@
 		"babel-core": "^7.0.0-0",
 		"babel-jest": "^22.0.4",
 		"lint-staged": "^6.0.0",
+		"onchange": "^3.3.0",
 		"stylus": "^0.54.5",
 		"stylus-loader": "^3.0.1",
 		"vue-template-compiler": "^2.5.13"
