@@ -1,5 +1,15 @@
 {
   "presets": [
     "@vue/app"
-  ]
+  ],
+	"plugins": [
+		"@babel/plugin-proposal-function-bind",
+		"@babel/plugin-proposal-pipeline-operator",
+		["@babel/plugin-proposal-decorators", {
+			"legacy": true
+		}],
+		["@babel/plugin-proposal-class-properties", {
+			"loose": true
+		}]
+	]
 }
