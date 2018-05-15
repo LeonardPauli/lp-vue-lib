@@ -1,0 +1,91 @@
+# setup
+' LeonardPauli/lp-vue-base
+	Created by Leonard Pauli, 17 apr 2018
+
+see ./base-setup-from-scratch
+
+get running:
+	see lpdocs/app/node/registry/local
+	- vi .env.example && vi .env // add/mod relevant parameter
+		// eg. set env=dev, dev_on_host=true, image_name=..., ...
+	' optional: if data/ca already created, hard-link it
+		cd data && mkdir ca && ln ../path/to/original/files/data/ca/* ca/
+	- ./web/container/start or ./dev
+	' optional: CA.cert.root.install data/ca.pem // + restart chrome
+
+instantiate:
+	- cd parent-dir
+	- $lpdocs/app/vue/base/docs/instantiate my-app
+	- instantiate.sh:
+		#!/usr/bin/env sh
+		vue_base="$(script_dir)/.."
+		name="$1"
+		if [ -z "$name" ]; then echo "no name provided"; sleep 3; exit; fi
+		vue_base_remote="$(cd "$vue_base" && git remote get-url origin)"
+		git clone "$vue_base" "$name" && cd "$name"
+		git remote remove origin
+		git remote add lp-vue-base-remote "$vue_base_remote"
+		git remote add lp-vue-base-local "$vue_base"
+		git checkout -b master
+		ca_dir="web/container/data/ca"
+		if [ -d "$vue_base/$ca_dir" ]; then
+			mkdir -p "$ca_dir"
+			ln "$vue_base/$ca_dir"/* "$ca_dir"/
+		fi
+		# copying of node_modules might not work well because of links?
+		echo 'see lp-vue-base/docs/setup.instantiate for next steps'; sleep 3
+		open $vue_base/docs/setup.rim; exit
+	- see $lpdocs/admin/{licencing,readme}
+	- package.json fixes
+		add eg. "author": "Leonard Pauli <leonardpauli@me.com> (https://leonardpauli.me)",
+		add licence, etc, see $lpdocs/app/node/registry/npm."package.json"
+			// TODO: add dual licence by default? + default readme + licence in package.json
+	- git add . && git commit -m "instantiated from lp-vue-base"
+	- see "get running"
+
+
+' TODO:
+	see $lpdocs/app/meta-seo."for vue"
+	analytics? (load via js, not through script tag?)
+
+' Notes:
+	see https://github.com/BretFisher/node-docker-good-defaults
+	simpler hotel instead of nginx-base for ssl etc? nah, maybe use custom nginx-base with proxy_pass for local
+
+' prefer router: vi router.js
+	// landing
+	{
+		path: '/',
+		name: 'start',
+		component: Start,
+	},
+	// sub apps
+	// { ...blocksaday (import blocksaday), path: '/blocksaday' },
+	// Deprecated paths kept with redirects
+	// { path: '/some-legacy-path', redirect: '/misc/playground' },
+	{ path: '*', redirect: '/' }, // alt: error page?? though indexed wrongly; -> redirect home, but show not found modal with faulty path + search options
+
+' npm i mobx movue
+	vi main.js:
+		import Movue from 'movue'
+		import * as mobx from 'mobx'
+		Vue.use(Movue, mobx)
+
+' ExampleComponent
+	<template lang="pug">
+	.example-component
+		h1 {{msg}}
+	</template>
+	<script>
+	export default {
+		name: 'HelloWorld',
+		props: {
+			msg: {type: String},
+		},
+	}
+	</script>
+	<style lang="stylus" scoped>
+	.example-component
+		h1
+			color red
+	</style>
