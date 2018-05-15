@@ -1,11 +1,11 @@
 {
-	"name": "base",
+	"name": "base-web",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"lint:watch": "onchange '{{src}/**,.}/*.{vue,js}' -d 200 -w -- npm run --silent lint {{changed}}",
 		"lint:compile": "echo \"require('fs').writeFileSync('.eslintrc', JSON.stringify(require('./.eslintrc.js')), 'utf-8')\" | node",
-		"dev": "npm --prefer-offline --no-optional i && ./node_modules/.bin/vue-cli-service serve",
+		"dev": "(([ ! -d node_modules ] || (git show --name-status | grep package-lock.json)) && npm --prefer-offline i || echo already-installed) && ./node_modules/.bin/vue-cli-service serve",
 		"serve": "vue-cli-service serve --open",
 		"build": "vue-cli-service build",
 		"test": "vue-cli-service test",

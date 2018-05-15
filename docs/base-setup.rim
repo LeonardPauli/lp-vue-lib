@@ -5,17 +5,35 @@
 see ./base-setup-from-scratch
 
 get running:
-	see lpdocs/app/node/registry/local
-	- vi .env.example && vi .env // add/mod relevant parameter
-		// eg. set env=dev, dev_on_host=true, image_name=..., ...
-	' optional: if data/ca already created, hard-link it
-		cd data && mkdir ca && ln ../path/to/original/files/data/ca/* ca/
-	- ./web/container/start or ./dev
-	' optional: CA.cert.root.install data/ca.pem // + restart chrome
+	prerequisites:
+		- see instantiate or git clone project that's used instantiate
+		- cd project
+		- name="$(pwd)"; name="${name##*/}"
+	fix git hooks: // see base-setup-from-scratch."fix git hooks"
+		- ./git-hook-runner.sh install pre-commit
+		- ./git-hook-runner.sh install -noop all
+	optinally get lpdocs:
+		- lpdocs=$"(cd ~/some/path && git clone git@github.com:LeonardPauli/docs.git lpdocs && cd $_ && pwd)"
+			// see $lpdocs/app/node/registry/local
+		- echo "$lpdocs" | pbcopy // put in .env
+	fix env:
+		- cp .env.example .env
+		-   // make it accessible for container
+		- sed -e 's/my-app/'"$name"'/g' -i '' .env
+		- echo "COMPOSE_PROJECT_NAME=$name" >> .env
+		- vi .env // add/mod relevant parameter
+			// eg. set image_name=...
+			// env=dev, dev_on_host=true, lpdocs=/User/..., dev_window_setup, npm_config_registry, ...
+		' optional: if data/ca already created, hard-link it // done in instantiate
+			cd data && mkdir ca && ln ../path/to/original/files/data/ca/* ca/
+	start dev:
+		- ./dev (includes window automation, etc) or just ./web/container/start
+			// optional: abort when installing of cypress starts, disconnect internet, and restart, if you want to avoid it (large download for testing)
+		' optional: CA.cert.root.install data/ca.pem // + restart chrome
 
 instantiate:
 	- cd parent-dir
-	- $lpdocs/app/vue/base/docs/instantiate my-app
+	- $lpdocs/app/vue/base/docs/instantiate.sh my-app
 	- instantiate.sh:
 		#!/usr/bin/env sh
 		vue_base="$(script_dir)/.."
@@ -33,8 +51,10 @@ instantiate:
 			ln "$vue_base/$ca_dir"/* "$ca_dir"/
 		fi
 		# copying of node_modules might not work well because of links?
-		echo 'see lp-vue-base/docs/setup.instantiate for next steps'; sleep 3
-		open $vue_base/docs/setup.rim; exit
+		mv lp-vue-base.sublime-project "$name".sublime-project
+		sed -e 's/"name": "base-web"/"name": "'"$name"'-web"/' -i '' web/package.json
+		echo "see $vue_base/docs/setup.instantiate for next steps"; sleep 3
+		open $vue_base/docs/base-setup.rim; exit
 	- see $lpdocs/admin/{licencing,readme}
 	- package.json fixes
 		add eg. "author": "Leonard Pauli <leonardpauli@me.com> (https://leonardpauli.me)",
@@ -45,8 +65,12 @@ instantiate:
 
 
 ' TODO:
-	see $lpdocs/app/meta-seo."for vue"
-	analytics? (load via js, not through script tag?)
+	- see $lpdocs/app/meta-seo."for vue"
+	- analytics? (load via js, not through script tag?)
+	- Use registry/local for for dev_on_host as well (just set npm_config_registry in ~/.zshrc?)
+		remember to put back (or use --registry flag) to publish to main though
+	- way to only do initial npm i in npm run dev if package.json has changed?
+
 
 ' Notes:
 	see https://github.com/BretFisher/node-docker-good-defaults

@@ -263,5 +263,7 @@ prerequisites:
 
 - add this doc + ./instantiate script
 	- git branch -m master lp-vue-base-master // rename branch so it will ba able to co-exist in other repos with lp-vue-base as custom origin
-	- in github: after push, change default branch to lp-vue-base-master if necessary
+	- git push --set-upstream lp-vue-base-master
+	- in github: change default branch to lp-vue-base-master
+	- git push origin :master // delete master from origin
 	- git add . && git commit -m "docs: added base-setup.rim + instantiate.sh + base-setup-from-scratch.rim"

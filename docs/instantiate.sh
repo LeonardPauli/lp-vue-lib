@@ -18,5 +18,7 @@ if [ -d "$vue_base/$ca_dir" ]; then
 	ln "$vue_base/$ca_dir"/* "$ca_dir"/
 fi
 # copying of node_modules might not work well because of links?
-echo 'see lp-vue-base/docs/base-setup.instantiate for next steps'; sleep 3
-open $vue_base/docs/setup.rim; exit
+mv lp-vue-base.sublime-project "$name".sublime-project
+sed -e 's/"name": "base-web"/"name": "'"$name"'-web"/' -i '' web/package.json
+echo "see $vue_base/docs/base-setup.instantiate for next steps"; sleep 3
+open $vue_base/docs/base-setup.rim; exit
