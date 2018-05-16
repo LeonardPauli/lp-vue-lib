@@ -1,7 +1,9 @@
 {
-	"name": "base-web",
+	"name": "lp-vue-lib-web",
 	"version": "0.1.0",
 	"private": true,
+	"author": "Leonard Pauli <leonardpauli@me.com> (https://leonardpauli.me)",
+	"licence": "AGPL-3.0-or-later",
 	"scripts": {
 		"lint:watch": "onchange '{{src}/**,.}/*.{vue,js}' -d 200 -w -- npm run --silent lint {{changed}}",
 		"lint:compile": "echo \"require('fs').writeFileSync('.eslintrc', JSON.stringify(require('./.eslintrc.js')), 'utf-8')\" | node",
