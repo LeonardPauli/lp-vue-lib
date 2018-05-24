@@ -1,7 +1,7 @@
 {
 	"name": "lp-vue-lib-web",
 	"version": "0.1.0",
-	"private": true,
+	"private": false,
 	"author": "Leonard Pauli <leonardpauli@me.com> (https://leonardpauli.me)",
 	"licence": "AGPL-3.0-or-later",
 	"scripts": {
