@@ -1,0 +1,42 @@
+// main backgrounds
+$base-bg = hsl(218, 58%, 99%)
+
+
+
+// text colors
+$text-1 = #131326
+$input-label-text = #123123 
+$dark-text = #332A2A
+
+// element backgrounds
+$ui-button-bg = #70A8DB
+$ui-destructive-bg = #ff3535
+$ui-discreet-bg = $light-accent-color 
+
+$very-light-grey = hsla(0, 0%, 99%, 1)
+
+// #f9cf9c
+$accent-color = hsl(217, 65%, 55%) // #346ecc
+$light-accent-color = lighten($accent-color, 85%)
+$lighter-accent-color = lighten($accent-color, 93%)
+$input-background = #ececec
+
+$overlay-bg = rgba(black,.2)
+
+// main dimentions
+$header_h = 65px
+$sidebar_expanded_w = 280px
+
+// other colors
+$input_border_color = #E0E0E0
+
+
+// styles
+focusedInput()
+	outline none
+	box-shadow: 0 1px 4px 0 rgba(139,183,255,0.2);
+	border: 1px solid hsla(203, 66%, 46%, 0.24);
+	
+invalidInput()
+	box-shadow: 0 1px 10px 0 rgba(255,139,139,0.2);
+	border: 1px solid hsla(3, 86%, 36%, 0.2);

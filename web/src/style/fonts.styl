@@ -1,0 +1,29 @@
+font-face-create(name, variant, weight=400, style=normal)
+	@font-face
+		font-family name
+		font-weight weight
+		font-style style
+		$filename = name+"/"+name+"-"+variant
+		src unquote("url(/static/fonts/"+$filename+".woff)") format('woff'),
+				unquote("url(/static/fonts/"+$filename+".ttf)") format('truetype')
+
+font-face-create('OpenSans', 'Light', 					200, normal)
+font-face-create('OpenSans', 'LightItalic', 		200, italic)
+font-face-create('OpenSans', 'Regular', 				400, normal)
+font-face-create('OpenSans', 'Italic', 					400, italic)
+font-face-create('OpenSans', 'Semibold', 				500, normal)
+font-face-create('OpenSans', 'SemiboldItalic', 	500, italic)
+font-face-create('OpenSans', 'Bold', 						700, normal)
+font-face-create('OpenSans', 'BoldItalic', 			700, italic)
+font-face-create('OpenSans', 'ExtraBold', 			800, normal)
+font-face-create('OpenSans', 'ExtraBoldItalic', 800, italic)
+
+font-regular()
+	font-family 'OpenSans', Helvetica, Arial, sans-serif
+	font-weight 400
+	font-size 14px
+	
+/*
+	font-family 'Avenir', Helvetica, Arial, sans-serif
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale*/
