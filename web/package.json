@@ -6,13 +6,10 @@
 	"licence": "AGPL-3.0-or-later",
 	"homepage": "https://github.com/LeonardPauli/lp-vue-lib#readme",
 	"repository": "github:LeonardPauli/lp-vue-lib",
-	"main": "./dist/components-lib.common.js",
+	"main": "./dist/@leonardpauli/lp-vue-lib.common.js",
 	"files": [
 		"dist/*",
-		"src/*",
-		"public/*",
-		"*.json",
-		"*.js"
+		"src/*"
 	],
 	"scripts": {
 		"lint:watch": "onchange '{{src}/**,.}/*.{vue,js}' -d 200 -w -- npm run --silent lint {{changed}}",
@@ -20,7 +17,7 @@
 		"dev": "(([ ! -d node_modules ] || (git show --name-status | grep package-lock.json)) && npm --prefer-offline i || echo already-installed) && ./node_modules/.bin/vue-cli-service serve",
 		"serve": "vue-cli-service serve --open",
 		"build": "vue-cli-service build",
-		"build:lib": "vue-cli-service build --target lib --name components-lib src/components/index.js",
+		"build:lib": "vue-cli-service build --target lib index.js",
 		"test": "vue-cli-service test",
 		"e2e": "vue-cli-service e2e",
 		"lint": "vue-cli-service lint",
