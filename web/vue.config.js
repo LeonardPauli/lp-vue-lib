@@ -30,5 +30,6 @@ const addStylusNib = config=> {
 		// options.use.push(nib())
 		options.import = options.import || []
 		options.import.push('~nib/lib/nib/index.styl')
+		options.import.push('~@/style/index')
 	})
 }
