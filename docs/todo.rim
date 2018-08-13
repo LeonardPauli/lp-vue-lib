@@ -1,0 +1,91 @@
+# todo
+' LeonardPauli/lp-vue-lib
+	Created by Leonard Pauli, 27 may 2018
+
+
+lp-vue-lib
+	// - instantiate from lp-vue-base
+	// - use lp-vue-base as submodule in lpdocs
+	- try vue cli library target in lib
+		// https://medium.com/justfrontendthings/how-to-create-and-publish-your-own-vuejs-component-library-on-npm-using-vue-cli-28e60943eed3
+		- vi index.js
+			import Vue from '@vue/vue'
+			import UI from './UI'
+
+			// const components = {a, b, ...}
+			// Object.keys(components).forEach(k=> Vue.component(k, components[k]))
+
+			export default {UI}
+		- vue-cli-service build --target lib --name components-lib src/components/index.js
+			// add as build:lib to package.json scrips
+		- package-json-add "main" "./dist/components-lib.common.js"
+		- package-json-add "files": [
+			"dist/*",
+			"src/*",
+			"public/*",
+			"*.json",
+			"*.js"
+		],
+	- use styles + config through js
+	- use lp-utils for declarative + keyfix configs
+	- setup simple showroom
+	- npm publish lp-vue-lib
+	- use in vue-base
+
+	- admin
+		- fix AGPL licence // (later dual?, ie. "AGPL + commercial"?)
+		- fix README.md
+	- create todo.rim for components
+	- fix existing components
+		// - (postpone fixing component structure)
+		// - copy in components
+		- get components working with styling etc in makeshift page
+		- npm i + npm link data-moduler
+		- convert components to use $module
+		- commit
+	- fix modal
+		- add in way to access parent/ctx model, like App root model instance?
+		- convert modal to use $model
+		- convert Alert vue plugin to use parent/ctx $model
+		- test it
+		- commit
+	- showroom
+		- clean + refactor components some + move in more + improve makeshift page to MVP showroom with examples
+		- commit
+	- npm publish
+	- create docs/integrate.rim
+		- npm i, npm link
+		- folder with components (ln -s)
+		- stylus lib (ln -s)
+		- stylus theme example file (stylus + js) (copied, overrides base theme in lib)
+		// - integrate (ln -s lib, components + copy template)
+
+	- integrate to lp-vue-base
+		- see docs/integrate.rim
+		- test
+		- commit
+
+	' notes:
+		see https://github.com/vuejs/ui
+		reuse
+			ability to build and import components from built
+			dev config to use source instead of built
+			npm i git:#branch (+ ln -s for simplicity?) (or file: / link) to allow git commit etc
+		add with npm to lp-vue-base + as option in setup
+
+
+' TODO:
+	- research data/render
+		use vue with vue render
+			- transition / transition group?
+			- mutable style through js (pass through js middleware to handle size/-webkit- etc expansion? + obj -> css string? postcss?)
+			- static style through classes (how / where for progressive loading?)
+			- how to attach mobx (while keeping progressive computed props eval)?
+			- how to efficiently handle lists if v-for doen't exist?
+			- data structure transformation (to ease for common patterns etc)?
+				// later: - through rim
+					// before: possibly some yaml? nah
+			// nah for now, - use of typescript files? (MST supports ts, vue too, ...)
+			- create rim doc page(s) about its usage + ref
+			- extending? (structure format to be declarative (less functions), to allow for easy extension)
+			- convert components to use this pattern
