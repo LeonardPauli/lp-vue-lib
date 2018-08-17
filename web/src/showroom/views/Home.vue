@@ -1,6 +1,6 @@
 <template lang="pug">
 .home
-	img(src='../assets/logo.png')
+	img(src='../../assets/logo.png')
 	//- HelloWorld(msg='Welcome to Your Vue.js App')
 	ui-button(title="hello") hi
 </template>

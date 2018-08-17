@@ -6,15 +6,13 @@
 lp-vue-lib
 	// - instantiate from lp-vue-base
 	// - use lp-vue-base as submodule in lpdocs
-	- try vue cli library target in lib
+	' - try vue cli library target in lib
 		// https://medium.com/justfrontendthings/how-to-create-and-publish-your-own-vuejs-component-library-on-npm-using-vue-cli-28e60943eed3
 		- vi index.js
 			import Vue from '@vue/vue'
 			import UI from './UI'
-
 			// const components = {a, b, ...}
 			// Object.keys(components).forEach(k=> Vue.component(k, components[k]))
-
 			export default {UI}
 		- vue-cli-service build --target lib --name components-lib src/components/index.js
 			// add as build:lib to package.json scrips
@@ -22,9 +20,6 @@ lp-vue-lib
 		- package-json-add "files": [
 			"dist/*",
 			"src/*",
-			"public/*",
-			"*.json",
-			"*.js"
 		],
 	- use styles + config through js
 	- use lp-utils for declarative + keyfix configs
