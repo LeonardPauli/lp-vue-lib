@@ -1,11 +1,12 @@
 import button from './button'
 import input from './input'
 import select from './select'
+import choices from './choices'
 import textarea from './textarea'
 import imageInput from './imageInput'
 import dateInput from './dateInput'
 
-const uis = {button, input, textarea, imageInput, dateInput, select}
+const uis = {button, input, textarea, imageInput, dateInput, select, choices}
 
 const out = {}
 Object.keys(uis).forEach(key=> {
@@ -16,7 +17,8 @@ Object.keys(uis).forEach(key=> {
 	item.name = name
 	const prepareEl = originalHandler=> function Handler (...args) {
 		const {name} = this.$options
-		this.$el.classList.add(name)
+		// TODO: why is classList sometimes undefined?
+		this.$el.classList && this.$el.classList.add(name)
 		if (originalHandler) originalHandler.apply(this, args)
 	}
 	item.mounted = prepareEl(item.mounted)

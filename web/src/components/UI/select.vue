@@ -1,7 +1,7 @@
 <template lang="pug">
 
 .root(:class="{invalid}")
-	label(:for="name")
+	label(:for="name", v-if="label!==false")
 		| {{ label }}
 		.info(v-if="info") {{ info }}
 	select(:name="name", :value="selectedIndex", @input="changed")

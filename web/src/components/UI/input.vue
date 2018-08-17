@@ -82,6 +82,7 @@ export default {
 		.info
 			display inline-block
 			margin-left 4px
+			opacity: 0.8
 			
 	
 	input
@@ -89,7 +90,7 @@ export default {
 		height 42px
 		width 100%
 		background: $input-background
-		border: 0px solid $input_border_color;
+		border: 1px solid alpha($input_border_color, 0);
 		border-radius: 4px;
 		padding 12px 12px
 		box-sizing border-box

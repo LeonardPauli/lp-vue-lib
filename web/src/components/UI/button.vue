@@ -63,7 +63,7 @@ export default {
 	noselect()
 
 	&.destructive
-		background-color $ui_destructive_bg
+		background-color $ui-destructive-bg
 	&.discreet
 		background-color $light-accent-color
 		color $accent-color

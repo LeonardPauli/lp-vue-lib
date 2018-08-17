@@ -48,7 +48,7 @@ export default {
 		height 42px
 		width 100%
 		background: $input-background
-		border: 0px solid $input_border_color;
+		border: 1px solid alpha($input_border_color, 0);
 		border-radius: 4px;
 		padding 12px 17px
 		box-sizing border-box
