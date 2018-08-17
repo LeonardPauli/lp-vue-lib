@@ -1,0 +1,12 @@
+{
+  "name": "examples",
+  "version": "0.1.0",
+  "description": "",
+  "main": "example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "vue serve example.vue"
+  },
+  "author": "Leonard Pauli",
+  "license": "ISC"
+}

@@ -1,3 +1,4 @@
-import components from './src/components/UI/button'
+import * as components from './src/components'
+export * from './src/components'
 
-export default components // {hello: 'components'}
+export default components
