@@ -17,7 +17,12 @@ export const keyfix = o=> objectKeyPathFixedShallow(o, {vars: {
 }})
 
 // inspired by fn from stylus-lang
-const lighten = (color, v=1, type='%', prop='l', c = cr(color))=> {
+const cleanColor = color=> cr(typeof color==='object'
+	// because of declarative resolve putting in faulty value at first
+	// TODO: better way to fix declarative resolve correctly
+	&& Object.keys(color).length===0? 'black': color)
+const lighten = (color, v=1, type='%', prop='l',
+	c = cleanColor(color))=> {
 	const hsl = c.hsl()
 	const pi = 'hsl'.indexOf(prop)
 	if (type == '%') v = prop == 'l' && v > 0
@@ -26,7 +31,7 @@ const lighten = (color, v=1, type='%', prop='l', c = cr(color))=> {
 	hsl[pi] += v
 	return cr.hsl(...hsl)
 }
-const alpha = (color, v=1, c = cr(color))=> c.alpha(v)
+const alpha = (color, v=1, c = cleanColor(color))=> c.alpha(v)
 
 
 // config get

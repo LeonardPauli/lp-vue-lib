@@ -1,3 +1,7 @@
+// var log = require('string-from-object').log
+
+/* global module process require */
+
 module.exports = {
 	lintOnSave: false,
 	configureWebpack: config=> {
@@ -18,14 +22,21 @@ module.exports = {
 
 // add nib to stylus-loader (s)
 const addStylusNib = config=> {
-	const vueLoaderLoaders = config.module.rules.find(r=> 'a.vue'.match(r.test))
-		.use.find(l=> l.loader=='vue-loader').options.loaders
-	const stylusLoaders = config.module.rules
-		.filter(r=> r.test.toString().match(/\.styl(us)?\$/))
+	// const vueLoaderLoaders = config.module.rules
+	// 	.find(r=> 'a.vue'.match(r.test))
+	// 	.use.find(l=> l.loader=='vue-loader').options.loaders
+	const concat = xs=> xs.reduce((a, b)=> a.concat(b))
+	const unwrap = (xs, k)=> concat(xs.map(l=> l[k]))
+
+	const stylusLoadersMain = config.module.rules
+		.filter(r=> 'a.styl'.match(r.test) || 'a.stylus'.match(r.test))
+	const stylusLoaders = unwrap(unwrap(stylusLoadersMain, 'oneOf'), 'use')
+		.filter(l=> l.loader=='stylus-loader')
+
 	const nib = require('nib')
-	;[vueLoaderLoaders.styl, vueLoaderLoaders.stylus, ...stylusLoaders].forEach((_l, i)=> {
-		const l = Array.isArray(_l)? _l: _l.use
-		const {options} = l.find(l=> l.loader=='stylus-loader')
+
+	stylusLoaders.forEach((l, i)=> {
+		const {options} = l
 		// options.use = options.use || []
 		// options.use.push(nib())
 		options.import = options.import || []
