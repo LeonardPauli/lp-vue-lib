@@ -26,6 +26,7 @@ const lighten = (color, v=1, type='%', prop='l', c = cr(color))=> {
 	hsl[pi] += v
 	return cr.hsl(...hsl)
 }
+const alpha = (color, v=1, c = cr(color))=> c.alpha(v)
 
 
 // config get
@@ -38,9 +39,11 @@ export const configDefaultGet = ()=> declarative(({ui})=> ({
 			'accent.lighter.color': lighten(ui.style.accent.color, 0.93).css(),
 		}),
 		button: keyfix({
+			'kind.default.style.main.backgroundColor': '#70A8DB',
 			'kind.destructive.style.main.backgroundColor': ui.style.destructive.color,
 			'kind.discreet.style.main.backgroundColor': ui.style.accent.light.color,
 			'kind.discreet.style.main.color': ui.style.accent.color,
+			'kind.discreet.style.gradient.backgroundImage': `radial-gradient(circle, transparent 1%, ${alpha(ui.button.kind.default.style.main.backgroundColor, 0.3).css()} 10%, transparent 10%)`,
 		}),
 	}),
 }), {n: 2})

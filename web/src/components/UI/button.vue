@@ -13,6 +13,13 @@
 </template>
 <script>
 
+const styleGet = ({
+	me, conf=me.$lplibc.ui.button, kind=me.kind, sub='main',
+})=> ({
+	...conf.kind.default? conf.kind.default.style[sub]: {},
+	...kind && conf.kind[kind]? conf.kind[kind].style[sub]: {},
+})
+
 export default {
 	props: {
 		disabled: {type: Boolean, default: false },
@@ -24,17 +31,14 @@ export default {
 	},
 	data: ()=> ({}),
 	computed: {
-		styleMain () {
-			const st = this.$lplibc.ui.button.kind[this.kind]
-			return {
-				...st? st.style.main: {},
-			}
-		},
+		styleMain () { return styleGet({me: this}) },
+		styleGradient () { return styleGet({me: this, sub: 'gradient'}) },
 	},
 	methods: {
 		triggerGradient (e) {
 			const gradient = document.createElement('div')
 			gradient.className = 'gradient'
+			gradient.style.backgroundImage = this.styleGradient.backgroundImage
 			this.$el.appendChild(gradient)
 			
 			gradient.style.marginLeft = e.offsetX+'px'
@@ -54,7 +58,6 @@ export default {
 .button
 	font-modal-button-title()
 	display inline-block
-	background-color $ui-button-bg
 	transition background-image 0.3s, opacity 0.2s
 	box-shadow 0 1px 2px 0 rgba(100,100,100,0.50)
 	border-radius 4px
@@ -135,8 +138,5 @@ $scopedPrefix = 'ui-button'
 		
 		&.flash
 			animation unquote($scopedPrefix + 'gradient-anim') .7s
-			
-	&.discreet .gradient
-		background-image radial-gradient(circle, transparent 1%, alpha($ui-button-bg, 0.3) 10%, transparent 10%)
 
 </style>
