@@ -5,6 +5,7 @@
 	@click.prevent.stop="handler($event)",
 	@mousedown="triggerGradient($event)",
 	:class="[kind, disabled && 'disabled']",
+	:style="styleMain"
 	:floating="floating"
 	) {{ title }}
 	slot
@@ -21,9 +22,14 @@ export default {
 		handler: {type: Function, required: true },
 		kind: {type: String, default: '' }, // destructive, discreet, ''
 	},
-	data () {
-		return {
-		}
+	data: ()=> ({}),
+	computed: {
+		styleMain () {
+			const st = this.$lplibc.ui.button.kind[this.kind]
+			return {
+				...st? st.style.main: {},
+			}
+		},
 	},
 	methods: {
 		triggerGradient (e) {
@@ -62,12 +68,6 @@ export default {
 	font-weight 500
 	noselect()
 
-	&.destructive
-		background-color $ui-destructive-bg
-	&.discreet
-		background-color $light-accent-color
-		color $accent-color
-		
 	&.disabled
 		opacity 0.5
 		-webkit-filter saturate(0.6)

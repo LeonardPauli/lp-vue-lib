@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{ "path": "web", "name": "web",
-			"folder_exclude_patterns": ["node_modules", "src"],
+			"folder_exclude_patterns": ["node_modules", "src", "dist"],
 			"file_exclude_patterns": ["package-lock.json"],
 		},
 		{ "path": "web/src", "name": "web-src" },
