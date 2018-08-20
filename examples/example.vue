@@ -5,8 +5,11 @@
 </div>
 </template>
 <script>
-import {UI} from '@leonardpauli/lp-vue-lib'
+import Vue from 'vue'
+import libplugin, {UI} from '@leonardpauli/lp-vue-lib'
 import '@leonardpauli/lp-vue-lib/dist/@leonardpauli/lp-vue-lib.css'
+
+Vue.use(libplugin, {config: {a: 'hello'}})
 
 export default {
 	name: 'hello',
