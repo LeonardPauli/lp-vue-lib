@@ -34,6 +34,12 @@ const lighten = (color, v=1, type='%', prop='l',
 const alpha = (color, v=1, c = cleanColor(color))=> c.alpha(v)
 
 
+export const configHelpers = {
+	keyfix, declarative,
+	cr, cleanColor, lighten, alpha,
+}
+
+
 // config get
 export const configDefaultGet = ()=> declarative(({ui})=> ({
 	ui: keyfix({
