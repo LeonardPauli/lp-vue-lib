@@ -3,7 +3,7 @@
 	Created by Leonard Pauli, 27 may 2018
 
 
-lp-vue-lib
+' lp-vue-lib
 	// - instantiate from lp-vue-base
 	// - use lp-vue-base as submodule in lpdocs
 	' - try vue cli library target in lib
@@ -21,11 +21,11 @@ lp-vue-lib
 			"dist/*",
 			"src/*",
 		],
-	- use styles + config through js
-	- use lp-utils for declarative + keyfix configs
-	- setup simple showroom
-	- npm publish lp-vue-lib
-	- use in vue-base
+	// - use styles + config through js
+	// - use lp-utils for declarative + keyfix configs
+	// - setup simple showroom
+	// - npm publish lp-vue-lib
+	// - use in vue-base
 
 	- admin
 		- fix AGPL licence // (later dual?, ie. "AGPL + commercial"?)

@@ -6,6 +6,8 @@
 </template>
 <script>
 import Vue from 'vue'
+
+// TODO: register components globally during plugin installation
 import libplugin, {UI, configHelpers} from '@leonardpauli/lp-vue-lib'
 import '@leonardpauli/lp-vue-lib/dist/@leonardpauli/lp-vue-lib.css'
 const {keyfix} = configHelpers

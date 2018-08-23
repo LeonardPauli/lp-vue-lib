@@ -1,14 +1,1 @@
-{
-  "presets": [
-    "@vue/app"
-  ],
-	"plugins": [
-		"@babel/plugin-proposal-function-bind",
-		["@babel/plugin-proposal-decorators", {
-			"legacy": true
-		}],
-		["@babel/plugin-proposal-class-properties", {
-			"loose": true
-		}]
-	]
-}
+{"presets": [ ["module:@leonardpauli/babel-preset", {"minify": false}] ]}
