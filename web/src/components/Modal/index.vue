@@ -29,7 +29,7 @@
 
 </template>
 <script>
-import UI from './UI/index.js'
+import UI from '../UI'
 
 export default {
 	name: 'Modal',
